@@ -16,7 +16,7 @@ const Home = () => {
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="grid md:grid-cols-4 gap-8">
 						<div className="md:col-span-2">
-							<h3 className="text-lg font-semibold mb-4">MEI Seguro</h3>
+							<h3 className="text-lg font-semibold mb-4">MEI Resolve</h3>
 							<p className="text-muted-foreground mb-4">
 								Especialistas em regularização de MEI. Cuidamos de toda a
 								burocracia para você focar no que realmente importa: seu
