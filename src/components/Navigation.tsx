@@ -39,7 +39,7 @@ const Navigation = () => {
                 {link.label}
               </Link>
             ))}
-            <Button variant="default" className="bg-[#130047] text-white cursor-pointer">
+            <Button variant="default" className="bg-primary text-white cursor-pointer">
               Fale Conosco
             </Button>
           </div>
@@ -69,7 +69,7 @@ const Navigation = () => {
                 </Link>
               ))}
               <div className="px-3 pt-2">
-                <Button variant="secondary" className="w-full text-white bg-[#130047]">
+                <Button variant="default" className="w-full text-white bg-primary">
                   Fale Conosco
                 </Button>
               </div>

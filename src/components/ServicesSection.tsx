@@ -64,10 +64,12 @@ const ServicesSection = () => {
           {services.map((service, index) => (
             <Card key={index} className="card-elevated h-full">
               <CardHeader>
-                <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center mb-4">
-                  <service.icon className="h-6 w-6 text-primary-foreground" />
+                <div className="flex gap-4 items-center">
+                  <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mb-4">
+                    <service.icon className="h-6 w-6 text-primary-foreground" />
+                  </div>
+                  <CardTitle className="text-xl mb-2">{service.title}</CardTitle>
                 </div>
-                <CardTitle className="text-xl mb-2">{service.title}</CardTitle>
               </CardHeader>
               <CardContent className="flex-1 flex flex-col">
                 <p className="text-muted-foreground mb-6 flex-1">{service.description}</p>
@@ -75,14 +77,14 @@ const ServicesSection = () => {
                 <div className="space-y-2 mb-6">
                   {service.features.map((feature, idx) => (
                     <div key={idx} className="flex items-center text-sm">
-                      <div className="w-2 h-2 bg-[#fbc71e] rounded-full mr-3"></div>
+                      <div className="w-2 h-2 bg-accent rounded-full mr-3"></div>
                       <span>{feature}</span>
                     </div>
                   ))}
                 </div>
 
                 <Link href={service.link}>
-                  <Button variant="outline" className="w-full mt-auto cursor-pointer">
+                  <Button variant="outline" className="w-full mt-auto cursor-pointer border-primary-foreground">
                     Saiba Mais
                   </Button>
                 </Link>
@@ -92,7 +94,7 @@ const ServicesSection = () => {
         </div>
 
         <div className="text-center mt-12">
-          <Button size="lg" variant="default" className="text-lg bg-[#130047] text-white  px-8">
+          <Button size="lg" variant="default" className="text-lg bg-primary text-white  px-8">
             Solicite um Orçamento Gratuito
           </Button>
         </div>

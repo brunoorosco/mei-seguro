@@ -70,7 +70,7 @@ const TestimonialsSection = () => {
                 {/* Rating */}
                 <div className="flex items-center mb-4">
                   {[...Array(testimonial.rating)].map((_, i) => (
-                    <Star key={i} className="h-4 w-4 text-[#fbc71e] fill-current" />
+                    <Star key={i} className="h-4 w-4 text-accent fill-current" />
                   ))}
                 </div>
 
@@ -96,7 +96,7 @@ const TestimonialsSection = () => {
           <div className="inline-flex items-center space-x-2 text-muted-foreground">
             <div className="flex">
               {[...Array(5)].map((_, i) => (
-                <Star key={i} className="h-5 w-5 text-[#fbc71e] fill-current" />
+                <Star key={i} className="h-5 w-5 text-accent fill-current" />
               ))}
             </div>
             <span className="text-lg font-semibold">4.9/5</span>

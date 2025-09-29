@@ -11,7 +11,7 @@ const HeroSection = () => {
           <div className="text-center lg:text-left">
             <h1 className="text-4xl lg:text-6xl font-bold leading-tight mb-6">
               Regularize seu MEI
-              <span className="block text-[#fbc71e]"> sem complicação</span>
+              <span className="block text-accent"> sem complicação</span>
             </h1>
             <p className="text-xl text-primary-foreground/90 mb-8 max-w-lg">
               Resolva todas as pendências do seu MEI de forma rápida e segura. Cuidamos de toda a burocracia para você
@@ -21,33 +21,33 @@ const HeroSection = () => {
             {/* Benefits */}
             <div className="grid sm:grid-cols-2 gap-4 mb-8">
               <div className="flex items-center space-x-3">
-                <CheckCircle className="h-5 w-5 text-[#fbc71e] lex-shrink-0" />
+                <CheckCircle className="h-5 w-5 text-accent lex-shrink-0" />
                 <span className="text-primary-foreground/90">Regularização completa</span>
               </div>
               <div className="flex items-center space-x-3">
-                <CheckCircle className="h-5 w-5 text-[#fbc71e] flex-shrink-0" />
+                <CheckCircle className="h-5 w-5 text-accent flex-shrink-0" />
                 <span className="text-primary-foreground/90">Encerramento de MEI</span>
               </div>
               <div className="flex items-center space-x-3">
-                <CheckCircle className="h-5 w-5 text-[#fbc71e] flex-shrink-0" />
+                <CheckCircle className="h-5 w-5 text-accent flex-shrink-0" />
                 <span className="text-primary-foreground/90">Suporte especializado</span>
               </div>
               <div className="flex items-center space-x-3">
-                <CheckCircle className="h-5 w-5 text-[#fbc71e] flex-shrink-0" />
+                <CheckCircle className="h-5 w-5 text-accent flex-shrink-0" />
                 <span className="text-primary-foreground/90">Acompanhamento total</span>
               </div>
             </div>
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" variant="secondary" className="text-lg px-8 bg-[#fbc71e] text-black">
+              <Button size="lg" variant="secondary" className="text-lg px-8  text-black cursor-pointer bg-accent">
                 Solicitar Orçamento
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button
                 variant="outline"
                 size="lg"
-                className="text-primary-foreground border-primary-foreground/30 hover:bg-primary-foreground/10"
+                className="text-primary-foreground border-primary-foreground/30 hover:bg-primary-foreground/10 cursor-pointer"
               >
                 Saiba Mais
               </Button>
