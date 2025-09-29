@@ -204,13 +204,11 @@ const Servicos = () => {
                 <Button size="lg" className="cursor-pointer">
                   Consulta Gratuita
                 </Button>
-                <a
-                  className="cursor-pointer bg-green-600 hover:bg-green-400 "
-                  href="https://wa.me/5511949370599?text=Olá bem vindo ao MEI Seguro."
-                  target="_blank"
-                >
-                  Falar via WhatsApp
-                </a>
+                <Button asChild size="lg" variant="default" className="bg-green-600 hover:bg-green-400">
+                  <Link href="https://wa.me/5511949370599?text=Olá%20bem%20vindo%20ao%20MEI%20Seguro." target="_blank">
+                    Falar via WhatsApp
+                  </Link>
+                </Button>
               </div>
             </div>
           </div>
