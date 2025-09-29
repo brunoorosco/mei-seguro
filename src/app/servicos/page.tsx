@@ -204,19 +204,13 @@ const Servicos = () => {
                 <Button size="lg" className="cursor-pointer">
                   Consulta Gratuita
                 </Button>
-                <Button
-                  size="lg"
-                  variant="default"
-                  className="cursor-pointer bg-green-600 hover:bg-green-400"
-                  onClick={() =>
-                    window.open(
-                      "https://wa.me/5511949370599?text=Olá bem vindo ao MEI Seguro.",
-                      "_blank"
-                    )
-                  }
+                <a
+                  className="cursor-pointer bg-green-600 hover:bg-green-400 "
+                  href="https://wa.me/5511949370599?text=Olá bem vindo ao MEI Seguro."
+                  target="_blank"
                 >
                   Falar via WhatsApp
-                </Button>
+                </a>
               </div>
             </div>
           </div>
