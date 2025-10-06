@@ -1,16 +1,14 @@
 "use client"
 
 import { useState } from "react"
-import { useForm, Controller } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import dynamic from "next/dynamic"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "sonner"
 import { CheckCircle, Phone, Mail, FileText, User } from "lucide-react"
-const InputMask = dynamic(() => import("react-input-mask-next"), { ssr: false })
 
 // ✅ Schema de validação com Zod
 const formSchema = z.object({
