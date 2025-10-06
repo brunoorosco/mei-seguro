@@ -4,12 +4,13 @@ import { useState } from "react"
 import { useForm, Controller } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
-import InputMask from "react-input-mask"
+import dynamic from "next/dynamic"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "sonner"
 import { CheckCircle, Phone, Mail, FileText, User } from "lucide-react"
+const InputMask = dynamic(() => import("react-input-mask-next"), { ssr: false })
 
 // ✅ Schema de validação com Zod
 const formSchema = z.object({
@@ -139,14 +140,14 @@ const LandingPage = () => {
                     control={control}
                     render={({ field }) => (
                       <InputMask mask="(99) 99999-9999" {...field}>
-                        {(inputProps) => (
+                        {/* {(inputProps) => (
                           <Input
                             {...inputProps}
                             id="whatsapp"
                             placeholder="(00) 00000-0000"
                             className={errors.whatsapp ? "border-destructive" : ""}
                           />
-                        )}
+                        )} */}
                       </InputMask>
                     )}
                   />
@@ -164,14 +165,14 @@ const LandingPage = () => {
                     control={control}
                     render={({ field }) => (
                       <InputMask mask="99.999.999/9999-99" {...field}>
-                        {(inputProps) => (
+                        {/* {(inputProps) => (
                           <Input
                             {...inputProps}
                             id="cnpj"
                             placeholder="00.000.000/0000-00"
                             className={errors.cnpj ? "border-destructive" : ""}
                           />
-                        )}
+                        )} */}
                       </InputMask>
                     )}
                   />
