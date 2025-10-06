@@ -1,4 +1,4 @@
-'use client'
+"use client"
 
 import { useState } from "react"
 import { useForm, Controller } from "react-hook-form"
@@ -76,14 +76,15 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-accent/10">
       {/* Hero Section */}
-      <section className="relative py-20 px-4 sm:px-6 lg:px-8">
+      <section className="relative py-10 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
-          <div className="text-center mb-16">
+          <div className="text-center mb-12">
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Regularize seu MEI Hoje Mesmo
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Deixe todas as pendências e burocracias com a gente. Especialistas em regularização de MEI prontos para te ajudar.
+              Deixe todas as pendências e burocracias com a gente. Especialistas em regularização de MEI prontos para te
+              ajudar.
             </p>
           </div>
 
@@ -135,19 +136,12 @@ const LandingPage = () => {
                     <Phone className="w-4 h-4" />
                     WhatsApp *
                   </Label>
-                  {/* <Controller
-                    name="whatsapp"
-                    control={control}
-                    render={({ field }) => (
-                         {(inputProps) => (
-                          <Input
-                            {...inputProps}
-                            id="whatsapp"
-                            placeholder="(00) 00000-0000"
-                            className={errors.whatsapp ? "border-destructive" : ""}
-                          />
-                        )}                    )}
-                  /> */}
+                  <Input
+                    {...register("whatsapp")}
+                    id="whatsapp"
+                    placeholder="(00) 00000-0000"
+                    className={errors.whatsapp ? "border-destructive" : ""}
+                  />
                   {errors.whatsapp && <p className="text-sm text-destructive">{errors.whatsapp.message}</p>}
                 </div>
 
@@ -157,19 +151,12 @@ const LandingPage = () => {
                     <FileText className="w-4 h-4" />
                     CNPJ *
                   </Label>
-                  {/* <Controller
-                    name="cnpj"
-                    control={control}
-                    render={({ field }) => (
-                        {(inputProps) => (
-                          <Input
-                            {...inputProps}
-                            id="cnpj"
-                            placeholder="00.000.000/0000-00"
-                            className={errors.cnpj ? "border-destructive" : ""}
-                          />
-                        )}                     )}
-                  /> */}
+                  <Input
+                    {...register("cnpj")}
+                    id="cnpj"
+                    placeholder="00.000.000/0000-00"
+                    className={errors.cnpj ? "border-destructive" : ""}
+                  />
                   {errors.cnpj && <p className="text-sm text-destructive">{errors.cnpj.message}</p>}
                 </div>
 
