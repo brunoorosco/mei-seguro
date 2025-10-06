@@ -1,6 +1,7 @@
 'use client'
+
 import { useState } from "react"
-import { useForm } from "react-hook-form"
+import { useForm, Controller } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
 import InputMask from "react-input-mask"
@@ -10,6 +11,7 @@ import { Label } from "@/components/ui/label"
 import { toast } from "sonner"
 import { CheckCircle, Phone, Mail, FileText, User } from "lucide-react"
 
+// ✅ Schema de validação com Zod
 const formSchema = z.object({
   nome: z
     .string()
@@ -42,9 +44,9 @@ const LandingPage = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-    setValue,
+    control,
     reset,
+    formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
   })
@@ -52,9 +54,8 @@ const LandingPage = () => {
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true)
     try {
-      // Simulando um delay de envio
+      // Simula o envio
       await new Promise((resolve) => setTimeout(resolve, 1000))
-
       console.log("Dados do formulário:", data)
 
       toast.success("Solicitação enviada com sucesso!", {
@@ -77,12 +78,11 @@ const LandingPage = () => {
       <section className="relative py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-primary bg-clip-text text-transparent">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
               Regularize seu MEI Hoje Mesmo
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Deixe todas as pendências e burocracias com a gente. Especialistas em regularização de MEI prontos para te
-              ajudar.
+              Deixe todas as pendências e burocracias com a gente. Especialistas em regularização de MEI prontos para te ajudar.
             </p>
           </div>
 
@@ -109,7 +109,7 @@ const LandingPage = () => {
             </div>
 
             {/* Form */}
-            <div className="bg-card rounded-lg shadow-elegant p-8 border border-border">
+            <div className="bg-card rounded-2xl shadow-lg p-8 border border-border">
               <h3 className="text-2xl font-bold mb-6 text-center">Solicite um Orçamento Gratuito</h3>
 
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
@@ -134,20 +134,22 @@ const LandingPage = () => {
                     <Phone className="w-4 h-4" />
                     WhatsApp *
                   </Label>
-                  <InputMask
-                    mask="(99) 99999-9999"
-                    onChange={(e) => setValue("whatsapp", e.target.value, { shouldValidate: true })}
-                  >
-                    {/* @ts-ignore */}
-                    {(inputProps) => (
-                      <Input
-                        {...inputProps}
-                        id="whatsapp"
-                        placeholder="(00) 00000-0000"
-                        className={errors.whatsapp ? "border-destructive" : ""}
-                      />
+                  <Controller
+                    name="whatsapp"
+                    control={control}
+                    render={({ field }) => (
+                      <InputMask mask="(99) 99999-9999" {...field}>
+                        {(inputProps) => (
+                          <Input
+                            {...inputProps}
+                            id="whatsapp"
+                            placeholder="(00) 00000-0000"
+                            className={errors.whatsapp ? "border-destructive" : ""}
+                          />
+                        )}
+                      </InputMask>
                     )}
-                  </InputMask>
+                  />
                   {errors.whatsapp && <p className="text-sm text-destructive">{errors.whatsapp.message}</p>}
                 </div>
 
@@ -157,20 +159,22 @@ const LandingPage = () => {
                     <FileText className="w-4 h-4" />
                     CNPJ *
                   </Label>
-                  <InputMask
-                    mask="99.999.999/9999-99"
-                    onChange={(e) => setValue("cnpj", e.target.value, { shouldValidate: true })}
-                  >
-                    {/* @ts-ignore */}
-                    {(inputProps) => (
-                      <Input
-                        {...inputProps}
-                        id="cnpj"
-                        placeholder="00.000.000/0000-00"
-                        className={errors.cnpj ? "border-destructive" : ""}
-                      />
+                  <Controller
+                    name="cnpj"
+                    control={control}
+                    render={({ field }) => (
+                      <InputMask mask="99.999.999/9999-99" {...field}>
+                        {(inputProps) => (
+                          <Input
+                            {...inputProps}
+                            id="cnpj"
+                            placeholder="00.000.000/0000-00"
+                            className={errors.cnpj ? "border-destructive" : ""}
+                          />
+                        )}
+                      </InputMask>
                     )}
-                  </InputMask>
+                  />
                   {errors.cnpj && <p className="text-sm text-destructive">{errors.cnpj.message}</p>}
                 </div>
 
