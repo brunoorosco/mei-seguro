@@ -59,6 +59,9 @@ importers:
       react-dom:
         specifier: 19.1.0
         version: 19.1.0(react@19.1.0)
+      react-hook-form:
+        specifier: ^7.64.0
+        version: 7.64.0(react@19.1.0)
       react-input-mask-next:
         specifier: ^3.0.0-alpha.12
         version: 3.0.0-alpha.12(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
