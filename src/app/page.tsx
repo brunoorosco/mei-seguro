@@ -13,7 +13,7 @@ const Home = () => {
 
 			{/* Footer */}
 			<footer className="bg-card border-t border-border py-12">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div className=" mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="grid md:grid-cols-4 gap-8">
 						<div className="md:col-span-2">
 							<h3 className="text-lg font-semibold mb-4">MEI Seguro</h3>
