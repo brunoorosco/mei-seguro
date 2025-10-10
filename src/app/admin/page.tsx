@@ -16,6 +16,8 @@ import {
 } from "lucide-react"
 import Navigation from "@/components/Navigation"
 import { getLeadById, listLeads } from "../actions/leads"
+import { Lead } from "@/types"
+import CRMSystem from "@/components/crm"
 
 // Mock data
 const mockServices = [
@@ -208,15 +210,16 @@ const Admin = () => {
 
           {/* CRM Tab */}
           <TabsContent value="crm" className="space-y-6">
-            <div>
+            <CRMSystem leads={leads} />
+            {/* <div>
               {pending
                 ? "Carregando..."
-                : leads.map((l: any) => (
-                    <button key={l.id} onClick={() => openLead(l.id)}>
+                : leads.map((l: Lead) => (
+                    <button key={l._id} onClick={() => openLead(l._id)}>
                       {l.name}
                     </button>
                   ))}
-            </div>
+            </div> */}
           </TabsContent>
 
           {/* Analytics Tab */}

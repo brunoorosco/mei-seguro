@@ -59,6 +59,8 @@ export async function listLeads(input: Partial<ListLeadsInput> = {}) {
         name: 1,
         cnpj: 1,
         phone: 1,
+        tags: 1,
+        finance: 1,
         email: 1,
         columnId: 1,
         company: { isMei: 1, razao_social: 1, situacao_cadastral: 1 },

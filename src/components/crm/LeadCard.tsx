@@ -27,12 +27,12 @@ export function LeadCard({ lead }: { lead: Lead }) {
     >
       <Card
         className={[
-          "mb-3 transition-shadow border-gray-300",
+          "mb-2 transition-shadow border-gray-300",
           "cursor-grab active:cursor-grabbing",
           isDragging ? "opacity-50 ring-2 ring-primary/50" : "hover:shadow-md",
         ].join(" ")}
       >
-        <CardContent className="p-4 pt-2 space-y-2">
+        <CardContent className="px-4 pt-0 space-y-2">
           <div className="flex items-start justify-between gap-2">
             <div className="flex-1">
               <CardTitle className="text-base font-semibold">{lead.name}</CardTitle>
@@ -59,16 +59,16 @@ export function LeadCard({ lead }: { lead: Lead }) {
           )}
 
           {/* Valor/ficha financeira (ajuste conforme seu modelo) */}
-          {typeof (lead as any).finance?.servico === "number" && (
+          {typeof lead.finance?.servico === "number" && (
             <div className="flex items-center justify-between pt-2">
               <span className="text-lg font-bold text-primary">
-                R$ {(lead as any).finance.servico}
+                R$ {lead.finance.servico}
               </span>
             </div>
           )}
 
           {/* Tags, se tiver */}
-          {Array.isArray((lead as any).tags) && (lead as any).tags.length > 0 && (
+          {Array.isArray(lead.tags) && lead.tags.length > 0 && (
             <div className="flex flex-wrap gap-1 pt-2">
               {(lead as any).tags.map((tag: string) => (
                 <Badge key={tag} variant="secondary" className="text-xs">

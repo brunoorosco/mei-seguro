@@ -6,6 +6,7 @@ export type Lead = {
   phone: string
   type_lead: string
   createdAt: Date
+  status: boolean
   company?: Company
   finance: Finance
   tags: Tag[]

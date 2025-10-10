@@ -1,3 +1,4 @@
+"use client"
 import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -18,46 +19,7 @@ import {
   XCircle,
   AlertCircle,
 } from "lucide-react"
-
-// Mock CRM data
-const mockLeads = [
-  {
-    id: 1,
-    name: "Ana Rodrigues",
-    email: "ana.rodrigues@email.com",
-    phone: "(11) 99999-1234",
-    business: "Salão de Beleza",
-    service: "Regularização de Pendências",
-    status: "new",
-    value: 350,
-    created: "2025-01-15",
-    lastContact: "2025-01-15",
-  },
-  {
-    id: 2,
-    name: "Carlos Mendes",
-    email: "carlos.mendes@email.com",
-    phone: "(11) 99999-5678",
-    business: "Oficina Mecânica",
-    service: "Encerramento de MEI",
-    status: "contacted",
-    value: 280,
-    created: "2025-01-14",
-    lastContact: "2025-01-16",
-  },
-  {
-    id: 3,
-    name: "Fernanda Costa",
-    email: "fernanda.costa@email.com",
-    phone: "(11) 99999-9012",
-    business: "Loja Online",
-    service: "Consultoria Especializada",
-    status: "proposal",
-    value: 450,
-    created: "2025-01-12",
-    lastContact: "2025-01-17",
-  },
-]
+import { Lead } from "@/types"
 
 const mockClients = [
   {
@@ -128,15 +90,18 @@ const getStatusLabel = (status: string) => {
   }
 }
 
-const CRMSystem = () => {
-  const [leads, setLeads] = useState(mockLeads)
+type Props = {
+  leads: Lead[]
+}
+
+const CRMSystem = (props: Props) => {
   const [clients, setClients] = useState(mockClients)
   const [searchTerm, setSearchTerm] = useState("")
 
-  const filteredLeads = leads.filter(
+  const filteredLeads = props.leads.filter(
     (lead) =>
       lead.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      lead.business.toLowerCase().includes(searchTerm.toLowerCase())
+      lead.company?.razao_social.toLowerCase().includes(searchTerm.toLowerCase())
   )
 
   const filteredClients = clients.filter(
@@ -173,7 +138,7 @@ const CRMSystem = () => {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-muted-foreground">Leads Ativos</p>
-                <p className="text-2xl font-bold text-primary">{leads.length}</p>
+                <p className="text-2xl font-bold text-primary">{props.leads.length}</p>
               </div>
               <User className="h-8 w-8 text-primary" />
             </div>
@@ -200,7 +165,7 @@ const CRMSystem = () => {
               <div>
                 <p className="text-sm text-muted-foreground">Pipeline Total</p>
                 <p className="text-2xl font-bold text-primary">
-                  R$ {leads.reduce((sum, lead) => sum + lead.value, 0)}
+                  R$ {props.leads.reduce((sum, lead) => sum + (lead.finance?.mensalidade || 0), 0)}
                 </p>
               </div>
               <DollarSign className="h-8 w-8 text-primary" />
@@ -223,7 +188,7 @@ const CRMSystem = () => {
 
       <Tabs defaultValue="leads" className="space-y-4">
         <TabsList>
-          <TabsTrigger value="leads">Leads ({leads.length})</TabsTrigger>
+          <TabsTrigger value="leads">Leads ({props.leads.length})</TabsTrigger>
           <TabsTrigger value="clients">Clientes ({clients.length})</TabsTrigger>
         </TabsList>
 
@@ -231,7 +196,7 @@ const CRMSystem = () => {
         <TabsContent value="leads">
           <div className="grid gap-4">
             {filteredLeads.map((lead) => (
-              <Card key={lead.id} className="card-elevated">
+              <Card key={lead._id} className="card-elevated">
                 <CardHeader className="pb-4">
                   <div className="flex justify-between items-start">
                     <div className="flex-1">
@@ -239,17 +204,19 @@ const CRMSystem = () => {
                         {lead.name}
                         <Badge
                           variant="secondary"
-                          className={`${getStatusColor(lead.status)} text-white`}
+                          // className={`${getStatusColor(lead.status)} text-white`}
                         >
-                          {getStatusLabel(lead.status)}
+                          {/* {getStatusLabel(lead.status)} */}
                         </Badge>
                       </CardTitle>
                       <CardDescription className="mt-1">
-                        {lead.business} • {lead.service}
+                        {lead.company?.razao_social} • {lead.company?.atividade_principal}
                       </CardDescription>
                     </div>
                     <div className="text-right">
-                      <p className="text-lg font-semibold text-primary">R$ {lead.value}</p>
+                      <p className="text-lg font-semibold text-primary">
+                        R$ {lead.finance?.mensalidade}
+                      </p>
                       <p className="text-xs text-muted-foreground">Valor estimado</p>
                     </div>
                   </div>
@@ -269,11 +236,11 @@ const CRMSystem = () => {
                     <div className="space-y-2">
                       <div className="flex items-center gap-2 text-sm">
                         <Calendar className="h-4 w-4 text-muted-foreground" />
-                        <span>Criado: {lead.created}</span>
+                        <span>Criado: {new Date(lead.createdAt).toLocaleString("pt-BR")}</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm">
                         <Clock className="h-4 w-4 text-muted-foreground" />
-                        <span>Último contato: {lead.lastContact}</span>
+                        <span>Último contato: </span>
                       </div>
                     </div>
                   </div>
