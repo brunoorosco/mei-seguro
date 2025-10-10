@@ -106,13 +106,13 @@ export function NewLeadDialog({
       ? makeCompany(form.companyRazaoSocial.trim())
       : undefined
 
-    console.log("asd", form)
 
     const payload: NewLeadInput = {
       name: form.name.trim(),
       cnpj: form.cnpj.trim(),
       email: form.email.trim(),
       phone: form.phone.trim(),
+      status: true,
       type_lead: "cold", // ajuste se desejar outro default
       company,
       finance,
