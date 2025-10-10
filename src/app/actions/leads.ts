@@ -88,3 +88,22 @@ export async function listLeads(input: Partial<ListLeadsInput> = {}) {
 function escapeRegex(s: string) {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
 }
+
+type MovePayload =
+  | { id: string; columnId: string } // sem order
+  | { id: string; columnId: string; order: number } // com order
+
+export async function moveLeadToColumn(payload: MovePayload) {
+  const leadColection = await getCollection<TLead>("users")
+  const { id, columnId } = payload
+
+  const update: any = { columnId: new ObjectId(columnId) }
+  if ("order" in payload) update.order = payload.order
+
+  const res = await leadColection.updateOne({ _id: new ObjectId(id) }, { $set: update })
+
+  if (res.matchedCount !== 1) {
+    throw new Error("Lead não encontrado")
+  }
+  return { ok: true }
+}

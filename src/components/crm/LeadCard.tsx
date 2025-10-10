@@ -1,55 +1,78 @@
 "use client"
 import { useSortable } from "@dnd-kit/sortable"
 import { CSS } from "@dnd-kit/utilities"
-import { Card, CardContent, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { GripVertical, Mail, Phone } from "lucide-react"
-import { Lead } from "@/types"
+import { Mail, Phone } from "lucide-react"
+import type { Lead } from "@/types"
 
 export function LeadCard({ lead }: { lead: Lead }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: lead._id,
+    data: { type: "lead" }, // importante para o onDragStart/onDragEnd
   })
-  const style = { transform: CSS.Transform.toString(transform), transition }
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  }
 
   return (
-    <div ref={setNodeRef} style={style} className="w-full" {...attributes} {...listeners}>
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      className="w-full select-none"
+    >
       <Card
-        className={`mb-2 cursor-move transition-shadow py-0 border-gray-400 ${
-          isDragging ? "opacity-50 ring-2 ring-primary/50" : "hover:shadow-md"
-        }`}
+        className={[
+          "mb-3 transition-shadow border-gray-300",
+          "cursor-grab active:cursor-grabbing",
+          isDragging ? "opacity-50 ring-2 ring-primary/50" : "hover:shadow-md",
+        ].join(" ")}
       >
-        <CardContent className="p-4">
-          <div className="flex items-start justify-between mb-2">
+        <CardContent className="p-4 pt-2 space-y-2">
+          <div className="flex items-start justify-between gap-2">
             <div className="flex-1">
-              <CardTitle className="text-base font-semibold line-clamp-1">{lead.name}</CardTitle>
-              <p className="text-sm text-muted-foreground line-clamp-1">
-                {lead.company?.razao_social || "Nome da Empresa"}
-              </p>
+              <CardTitle className="text-base font-semibold">{lead.name}</CardTitle>
+              {/* ajuste aqui conforme sua estrutura (ex.: lead.company?.razao_social) */}
+              {lead.company?.razao_social ? (
+                <p className="text-sm text-muted-foreground line-clamp-1">{lead.company.razao_social}</p>
+              ) : lead.company ? (
+                <p className="text-sm text-muted-foreground line-clamp-1">{String(lead.company)}</p>
+              ) : null}
             </div>
-            <div className="cursor-grab active:cursor-grabbing">
-              <GripVertical className="h-4 w-4 text-muted-foreground" />
+          </div>
+          {lead.email && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Mail className="h-3 w-3" />
+              <span className="text-xs break-all line-clamp-1">{lead.email}</span>
             </div>
-          </div>
+          )}
 
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Mail className="h-3 w-3" />
-            <span className="text-xs line-clamp-1">{lead.email}</span>
-          </div>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Phone className="h-3 w-3" />
-            <span className="text-xs">{lead.phone}</span>
-          </div>
+          {lead.phone && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <Phone className="h-3 w-3" />
+              <span className="text-xs">{lead.phone}</span>
+            </div>
+          )}
 
-          <div className="flex items-center justify-between pt-2">
-            <span className="text-lg font-bold text-primary">R$ {lead.finance?.servico || "-"}</span>
-          </div>
+          {/* Valor/ficha financeira (ajuste conforme seu modelo) */}
+          {typeof (lead as any).finance?.servico === "number" && (
+            <div className="flex items-center justify-between pt-2">
+              <span className="text-lg font-bold text-primary">
+                R$ {(lead as any).finance.servico}
+              </span>
+            </div>
+          )}
 
-          {lead.tags?.length > 0 && (
+          {/* Tags, se tiver */}
+          {Array.isArray((lead as any).tags) && (lead as any).tags.length > 0 && (
             <div className="flex flex-wrap gap-1 pt-2">
-              {lead.tags.map((tag) => (
-                <Badge key={tag.name} variant="secondary" className="text-xs">
-                  {tag.name}
+              {(lead as any).tags.map((tag: string) => (
+                <Badge key={tag} variant="secondary" className="text-xs">
+                  {tag}
                 </Badge>
               ))}
             </div>

@@ -15,7 +15,7 @@ import {
   Plus,
 } from "lucide-react"
 import Navigation from "@/components/Navigation"
-import { getLeadById, listLeads } from "../actions/getLeads"
+import { getLeadById, listLeads } from "../actions/leads"
 
 // Mock data
 const mockServices = [

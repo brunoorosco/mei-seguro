@@ -62,4 +62,5 @@ export type ColumnCrm = {
   description?: string
   color?: string
   createdAt: Date
+  position?: number
 }
