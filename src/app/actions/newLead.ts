@@ -2,15 +2,8 @@
 "use server"
 
 import { getCollection } from "@/lib/mongodb"
+import { leadSchema } from "@/schemas/lead"
 import { z } from "zod"
-
-const leadSchema = z.object({
-  nome: z.string().trim().min(1, "Nome é obrigatório").max(100, "Nome muito longo"),
-  whatsapp: z.string().regex(/^\(\d{2}\) \d{5}-\d{4}$/, "WhatsApp inválido. Use (11) 91234-5678"),
-  cnpj: z.string().regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, "CNPJ inválido. Use 00.000.000/0000-00"),
-  email: z.string().trim().email("E-mail inválido").max(255, "E-mail muito longo"),
-  columnId: z.string().trim().optional()
-})
 
 export type LeadPayload = z.infer<typeof leadSchema>
 type SubmitLeadResult = { ok: true } | { ok: false; error: string }

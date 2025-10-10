@@ -62,6 +62,12 @@ export async function submitColumn(payload: ColumnPayload): Promise<SubmitColumn
 }
 
 export async function deleteColumn(columnId: string): Promise<void> {
-  const collection = await getCollection("column_crm")
-  await collection.deleteOne({ _id: new ObjectId(columnId) })
+  const [collection, usersCollection] = await Promise.all([
+    getCollection("column_crm"),
+    getCollection("users"),
+  ])
+  const hasLeads = await usersCollection.findOne({ columnId: columnId })
+  if (!hasLeads) {
+    await collection.deleteOne({ _id: new ObjectId(columnId) })
+  }
 }

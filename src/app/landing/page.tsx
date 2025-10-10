@@ -1,29 +1,30 @@
-'use client'
+"use client"
 
-import { useState, useTransition } from 'react'
-import { useForm, Controller } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { z } from 'zod'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { toast } from 'sonner'
-import { CheckCircle, Phone, Mail, FileText, User } from 'lucide-react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog'
-import { submitLead } from '@/app/actions/newLead'
+import { useState, useTransition } from "react"
+import { useForm, Controller } from "react-hook-form"
+import { zodResolver } from "@hookform/resolvers/zod"
+import { z } from "zod"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { toast } from "sonner"
+import { CheckCircle, Phone, Mail, FileText, User } from "lucide-react"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog"
+import { submitLead } from "@/app/actions/newLead"
+import { leadSchema } from "@/schemas/lead"
 
-// --- schema (mantém o seu)
-const formSchema = z.object({
-  nome: z.string().trim().min(1, { message: 'Nome é obrigatório' }).max(100, { message: 'Nome deve ter no máximo 100 caracteres' }),
-  whatsapp: z.string().trim().min(1, { message: 'WhatsApp é obrigatório' }).regex(/^\(\d{2}\) \d{5}-\d{4}$/, { message: 'WhatsApp inválido' }),
-  cnpj: z.string().trim().min(1, { message: 'CNPJ é obrigatório' }).regex(/^\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}$/, { message: 'CNPJ inválido' }),
-  email: z.string().trim().min(1, { message: 'Email é obrigatório' }).email({ message: 'Email inválido' }).max(255, { message: 'Email deve ter no máximo 255 caracteres' }),
-})
-type FormData = z.infer<typeof formSchema>
+type FormData = z.infer<typeof leadSchema>
 
 // --- helpers de máscara (sem libs)
 function maskPhone(v: string) {
-  const digits = v.replace(/\D/g, '').slice(0, 11)
+  const digits = v.replace(/\D/g, "").slice(0, 11)
   const part1 = digits.slice(0, 2)
   const part2 = digits.slice(2, 7)
   const part3 = digits.slice(7, 11)
@@ -33,7 +34,7 @@ function maskPhone(v: string) {
 }
 
 function maskCNPJ(v: string) {
-  const d = v.replace(/\D/g, '').slice(0, 14)
+  const d = v.replace(/\D/g, "").slice(0, 14)
   const p1 = d.slice(0, 2)
   const p2 = d.slice(2, 5)
   const p3 = d.slice(5, 8)
@@ -51,9 +52,15 @@ const LandingPage = () => {
   const [openSuccess, setOpenSuccess] = useState(false)
   const [isPending, startTransition] = useTransition()
 
-  const { register, handleSubmit, control, reset, formState: { errors } } = useForm<FormData>({
-    resolver: zodResolver(formSchema),
-    defaultValues: { nome: '', whatsapp: '', cnpj: '', email: '' },
+  const {
+    register,
+    handleSubmit,
+    control,
+    reset,
+    formState: { errors },
+  } = useForm<FormData>({
+    resolver: zodResolver(leadSchema),
+    defaultValues: { nome: "", whatsapp: "", cnpj: "", email: "" },
   })
 
   const onSubmit = (data: FormData) => {
@@ -63,7 +70,7 @@ const LandingPage = () => {
         reset()
         setOpenSuccess(true)
       } else {
-        toast.error('Erro ao enviar solicitação', { description: res.error ?? 'Tente novamente.' })
+        toast.error("Erro ao enviar solicitação", { description: res.error ?? "Tente novamente." })
       }
     })
   }
@@ -96,7 +103,8 @@ const LandingPage = () => {
               Regularize seu MEI Hoje Mesmo
             </h1>
             <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Deixe todas as pendências e burocracias com a gente. Especialistas em regularização de MEI prontos para te ajudar.
+              Deixe todas as pendências e burocracias com a gente. Especialistas em regularização de
+              MEI prontos para te ajudar.
             </p>
           </div>
 
@@ -107,12 +115,12 @@ const LandingPage = () => {
 
               <div className="space-y-4">
                 {[
-                  'Atendimento personalizado e ágil',
-                  'Equipe especializada em legislação MEI',
-                  'Processo 100% digital e seguro',
-                  'Acompanhamento em tempo real',
-                  'Garantia de regularização',
-                  'Suporte contínuo após o serviço',
+                  "Atendimento personalizado e ágil",
+                  "Equipe especializada em legislação MEI",
+                  "Processo 100% digital e seguro",
+                  "Acompanhamento em tempo real",
+                  "Garantia de regularização",
+                  "Suporte contínuo após o serviço",
                 ].map((benefit, index) => (
                   <div key={index} className="flex items-start gap-3">
                     <CheckCircle className="w-6 h-6 text-primary flex-shrink-0 mt-1" />
@@ -124,7 +132,9 @@ const LandingPage = () => {
 
             {/* Form */}
             <div className="bg-card rounded-2xl shadow-lg p-8 border border-border">
-              <h3 className="text-2xl font-bold mb-6 text-center">Solicite um Orçamento Gratuito</h3>
+              <h3 className="text-2xl font-bold mb-6 text-center">
+                Solicite um Orçamento Gratuito
+              </h3>
 
               <form onSubmit={handleSubmit(onSubmit)} className="space-y-6" noValidate>
                 {/* Nome */}
@@ -135,10 +145,10 @@ const LandingPage = () => {
                   </Label>
                   <Input
                     id="nome"
-                    {...register('nome')}
+                    {...register("nome")}
                     placeholder="Digite seu nome completo"
                     aria-invalid={!!errors.nome}
-                    className={errors.nome ? 'border-destructive' : ''}
+                    className={errors.nome ? "border-destructive" : ""}
                   />
                   {errors.nome && <p className="text-sm text-destructive">{errors.nome.message}</p>}
                 </div>
@@ -161,11 +171,13 @@ const LandingPage = () => {
                         onChange={(e) => field.onChange(maskPhone(e.target.value))}
                         onBlur={field.onBlur}
                         aria-invalid={!!errors.whatsapp}
-                        className={errors.whatsapp ? 'border-destructive' : ''}
+                        className={errors.whatsapp ? "border-destructive" : ""}
                       />
                     )}
                   />
-                  {errors.whatsapp && <p className="text-sm text-destructive">{errors.whatsapp.message}</p>}
+                  {errors.whatsapp && (
+                    <p className="text-sm text-destructive">{errors.whatsapp.message}</p>
+                  )}
                 </div>
 
                 {/* CNPJ (com máscara) */}
@@ -186,7 +198,7 @@ const LandingPage = () => {
                         onChange={(e) => field.onChange(maskCNPJ(e.target.value))}
                         onBlur={field.onBlur}
                         aria-invalid={!!errors.cnpj}
-                        className={errors.cnpj ? 'border-destructive' : ''}
+                        className={errors.cnpj ? "border-destructive" : ""}
                       />
                     )}
                   />
@@ -202,12 +214,14 @@ const LandingPage = () => {
                   <Input
                     id="email"
                     type="email"
-                    {...register('email')}
+                    {...register("email")}
                     placeholder="seu@email.com"
                     aria-invalid={!!errors.email}
-                    className={errors.email ? 'border-destructive' : ''}
+                    className={errors.email ? "border-destructive" : ""}
                   />
-                  {errors.email && <p className="text-sm text-destructive">{errors.email.message}</p>}
+                  {errors.email && (
+                    <p className="text-sm text-destructive">{errors.email.message}</p>
+                  )}
                 </div>
 
                 {/* Campo honeypot anti-spam (oculto) */}
@@ -221,7 +235,7 @@ const LandingPage = () => {
                 />
 
                 <Button type="submit" className="w-full" size="lg" disabled={isPending}>
-                  {isPending ? 'Enviando...' : 'Solicitar Orçamento Gratuito'}
+                  {isPending ? "Enviando..." : "Solicitar Orçamento Gratuito"}
                 </Button>
 
                 <p className="text-xs text-center text-muted-foreground">* Campos obrigatórios</p>

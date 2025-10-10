@@ -4,28 +4,11 @@ import { ObjectId, SortDirection } from "mongodb"
 import { z } from "zod"
 import { getCollection } from "@/lib/mongodb"
 import { Lead } from "@/types"
+import { getByIdSchema, listSchema } from "@/schemas/lead"
 
 // --------- Tipos e utilidades ----------
 
 export type TLead = Omit<Lead, "_id"> & { id: string }
-
-// --------- Schemas (entrada segura) ----------
-const getByIdSchema = z.object({
-  id: z.string().trim().min(1, "id obrigatório"),
-})
-
-const listSchema = z.object({
-  // filtros
-  columnId: z.string().trim().optional(),
-  search: z.string().trim().optional(), // procura em name/email/phone/company
-  tags: z.array(z.string().trim()).optional(),
-
-  // paginação & ordenação
-  page: z.number().int().min(1).default(1),
-  pageSize: z.number().int().min(1).max(100).default(20),
-  sortBy: z.enum(["createdAt", "updatedAt", "value", "name"]).default("createdAt"),
-  sortDir: z.enum(["asc", "desc"]).default("desc"),
-})
 
 export type ListLeadsInput = z.infer<typeof listSchema>
 
